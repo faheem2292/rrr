@@ -1,0 +1,65 @@
+// prisma/schema.prisma
+
+generator client {
+  provider      = "prisma-client-js"
+  binaryTargets = ["native", "rhel-openssl-1.0.x"]
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model Teacher {
+  id              Int      @id @default(autoincrement())
+  name            String
+  subject         String
+  phone           String?
+  email           String   @unique
+  img             String?
+  qualification   String?
+  experience      String?
+  salary          String?
+  joiningDate     String?
+  address         String?
+  showOnHomepage  Boolean  @default(false)
+}
+
+model Student {
+  id              Int      @id @default(autoincrement())
+  name            String
+  batch           String
+  grade           String
+  roll            String   @unique
+  img             String?
+  phone           String?
+  subject         String?
+  fatherName      String?
+  address         String?
+  dob             String?
+  admissionDate   String?
+  previousSchool  String?
+  guardianEmail   String?
+}
+
+model Event {
+  id    Int     @id @default(autoincrement())
+  title String
+  date  String
+  desc  String
+  img   String?
+}
+
+model Announcement {
+  id      Int      @id @default(autoincrement())
+  title   String
+  message String
+  date    DateTime @default(now())
+  type    String   @default("general")
+}
+
+model Notification {
+  id    Int      @id @default(autoincrement())
+  text  String
+  date  DateTime @default(now())
+}
